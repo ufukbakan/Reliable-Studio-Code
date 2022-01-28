@@ -1,0 +1,97 @@
+{
+  "name": "reliable-studio-code",
+  "productName": "Reliable Studio Code",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".webpack/main",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "test": "NODE_ENV=test jest",
+    "wintest": "SET NODE_ENV=test&& jest",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "ufuk bakan",
+    "email": "println.ufukbakan@gmail.com"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "reliable_studio_code"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "plugins": [
+        [
+          "@electron-forge/plugin-webpack",
+          {
+            "port": 9199,
+            "mainConfig": "./webpack.main.config.js",
+            "renderer": {
+              "config": "./webpack.renderer.config.js",
+              "entryPoints": [
+                {
+                  "html": "./src/index.html",
+                  "js": "./src/renderer.js",
+                  "name": "main_window"
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
+    "@electron-forge/plugin-webpack": "6.0.0-beta.61",
+    "@vercel/webpack-asset-relocator-loader": "1.7.0",
+    "babel-loader": "^8.0.0",
+    "css-loader": "^6.0.0",
+    "electron": "^16.0.3",
+    "jest": "^27.4.7",
+    "node-loader": "^2.0.0",
+    "style-loader": "^3.0.0"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "dotenv": "^14.3.2",
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^17.0.0",
+    "react-ace": "^9.5.0",
+    "react-dom": "^17.0.0",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.2.1",
+    "smalltalk": "^4.0.7",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  }
+}
