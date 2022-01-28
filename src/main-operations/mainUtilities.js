@@ -1,8 +1,8 @@
 const { dialog, ipcMain } = require("electron");
 // can not initialize modal window here because app is not ready yet.
 
-const codeExtensions = ['cs', 'java', 'c', 'cpp', 'py', 'js'];
-const encodedExtensions = ["scs", "sjava", "sc", "scpp", "spy", "sjs"];
+const codeExtensions = ['cs', 'java', 'c', 'cpp', 'py', 'js', 'txt', 'bat'];
+const encodedExtensions = ["scs", "sjava", "sc", "scpp", "spy", "sjs", "stxt", "sbat"];
 let saveWindowHandler = undefined;
 
 let openOperation = {

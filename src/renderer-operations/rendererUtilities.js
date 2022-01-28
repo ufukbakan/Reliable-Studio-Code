@@ -1,4 +1,4 @@
-export const encodedExtensions = ["scs", "sjava", "sc", "scpp", "spy", "sjs"];
+export const encodedExtensions = ["scs", "sjava", "sc", "scpp", "spy", "sjs", "stxt", "sbat"];
 
 export function areObjectsEqual(a, b) {
     if(typeof a === "object" && typeof b === "object"){
