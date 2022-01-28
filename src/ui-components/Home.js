@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { areObjectsEqual, calculateLevelOfFolder, DoesArrContainObj, encodedExtensions, getFolderName, getFullPathFromFileObj, removeObjectFromArray, sortFolders } from '../renderer-operations/rendererUtilities';
 import "../static/global-style.css";
-import Folder from './left-menu/folder';
+import Folder from './left-menu/Folder';
 import Tabs from './content/Tabs';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
