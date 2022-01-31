@@ -62,14 +62,23 @@ function showEncodedFilesDialog(mainWindow) {
 
 function showSaveEncodedFileDialog(mainWindow) {
     saveWindowHandler = mainWindow;
-    mainWindow.webContents.send("get-file-extension-and-save");
+    mainWindow.webContents.send("get-file-extension-and-save", true);
 }
 
-ipcMain.on("show-save-dialog-with-args", (event, extension, fileName) => {
+function showSaveDialog(mainWindow) {
+    saveWindowHandler = mainWindow;
+    mainWindow.webContents.send("get-file-extension-and-save", false);
+}
+
+ipcMain.on("show-save-dialog-with-args", (event, extension, fileName, isEncoded) => {
     let result = dialog.showSaveDialogSync({ defaultPath: fileName, filters: [{ name: 'Encoded source code', extensions: extension }] });
     if (result) {
         console.log("Ipc message is sent to save file");
-        saveWindowHandler.webContents.send("save-encoded-file", result);
+        if(isEncoded) {
+            saveWindowHandler.webContents.send("save-encoded-file", result);
+        }else{
+            saveWindowHandler.webContents.send("save-file", result);
+        }
     }
 });
 
@@ -125,5 +134,5 @@ function openCodeFolder(mainWindow) {
 }
 
 module.exports = {
-    codeExtensions, getFileNameFromPath, getFolderPathFromFilePath, showCodeFilesDialog: showCodeFilesDialog, openCodeFolderDialog, showSaveEncodedFileDialog, showEncodedFilesDialog
+    codeExtensions, getFileNameFromPath, getFolderPathFromFilePath, showCodeFilesDialog: showCodeFilesDialog, openCodeFolderDialog, showEncodedFilesDialog, showSaveDialog, showSaveEncodedFileDialog
 }

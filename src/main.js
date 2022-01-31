@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
-const { showCodeFilesDialog: showCodeFilesDialog, showSaveEncodedFileDialog, showEncodedFilesDialog } = require('./main-operations/mainUtilities');
+const { showSaveDialog ,showCodeFilesDialog, showSaveEncodedFileDialog, showEncodedFilesDialog } = require('./main-operations/mainUtilities');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -49,12 +49,11 @@ const createWindow = () => {
       },
       {
         label: "Save",
-        click: ()=>{}
+        click: ()=>{ showSaveDialog(mainWindow) }
       },
       {
-        label: "Save Encoded File", click: () => {
-          showSaveEncodedFileDialog(mainWindow);
-        }
+        label: "Save Encoded File",
+        click: () => { showSaveEncodedFileDialog(mainWindow); }
       }
     ]
   },

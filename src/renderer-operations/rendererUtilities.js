@@ -129,3 +129,20 @@ export function concatSplittedPathArray(split) {
 export function getFullPathFromFileObj(file){
     return file.directory + file.fileName;
 }
+
+export function convertFileExtension(extension, isEncoded){
+    if(isEncoded){
+        if(encodedExtensions.includes(extension)){
+            return extension;
+        }
+        else{
+            return "s".concat(extension);
+        }
+    }else{
+        if(encodedExtensions.includes(extension)){
+            return extension.substring(1);
+        }else{
+            return extension;
+        }
+    }
+}

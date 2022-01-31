@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { areObjectsEqual, calculateLevelOfFolder, DoesArrContainObj, encodedExtensions, getFolderName, getFullPathFromFileObj, removeObjectFromArray, sortFolders } from '../renderer-operations/rendererUtilities';
+import { areObjectsEqual, calculateLevelOfFolder, convertFileExtension, DoesArrContainObj, encodedExtensions, getFolderName, getFullPathFromFileObj, removeObjectFromArray, sortFolders } from '../renderer-operations/rendererUtilities';
 import "../static/global-style.css";
 import Folder from './left-menu/Folder';
 import Tabs from './content/Tabs';
@@ -84,16 +84,20 @@ export default function Home(props) {
         }).catch(() => {/* console.log("cancelled") */});
     });
 
-    ipcRenderer.on("get-file-extension-and-save", () => {
+    ipcRenderer.on("save-file", (path)=>{
+        writeFile(path, code);
+    });
+
+    ipcRenderer.on("get-file-extension-and-save", (isEncoded) => {
         if (tabs.length > 0) {
             let splittedFileName = activeTab.fileName.split('.');
             let extension = splittedFileName[splittedFileName.length - 1];
-            let newExtension = extension[0]!="s" ? "s" + extension : extension;
+            let newExtension = convertFileExtension(extension, isEncoded);
             let pureFileName = activeTab.fileName.replace("." + extension, "");
-            ipcRenderer.send("show-save-dialog-with-args", [newExtension], pureFileName);
+            ipcRenderer.send("show-save-dialog-with-args", [newExtension], pureFileName, isEncoded);
         }
         else {
-            ipcRenderer.send("show-save-dialog-with-args", encodedExtensions, "Untitled");
+            ipcRenderer.send("show-save-dialog-with-args", encodedExtensions, "Untitled", isEncoded);
         }
     });
 
